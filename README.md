@@ -21,6 +21,8 @@ and used as a stock server. If any documentation is unclear or it has any issues
 
 ## Linux
 
+[![linux/amd64](https://github.com/LacledesLAN/gamesvr-pzomboid/actions/workflows/build-linux-image.yml/badge.svg)](https://github.com/LacledesLAN/gamesvr-pzomboid/actions/workflows/build-linux-image.yml)
+
 ### Download
 
 ```shell
