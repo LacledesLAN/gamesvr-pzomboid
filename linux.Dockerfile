@@ -32,11 +32,10 @@ LABEL maintainer="Laclede's LAN <contact @lacledeslan.com>" `
       org.label-schema.description="Project Zomboid Dedicated Server" `
       org.label-schema.vcs-url="https://github.com/LacledesLAN/gamesvr-pzomboid"
 
-COPY --chown=zomboid:root --from=zomboid-downloader /output /app
-
 # Set up Enviornment
-RUN useradd --home /app --gid root --system zomboid &&`
-    chown zomboid:root -R /app;
+RUN useradd --home /app --gid root --system zomboid;
+
+COPY --chown=zomboid:root --from=zomboid-downloader /output /app
 
 USER zomboid
 
