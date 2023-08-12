@@ -148,8 +148,6 @@ fi;
 should_have "Administrator account 'admin' created" "server able to create admin account";
 should_have "LOADING ASSETS: FINISH" "asset loading completed";
 should_have "*** SERVER STARTED ****" "server started succesfully";
-
-sleep 75;
 should_echo 'servermsg hello-there-321' 'command entered via server console (System.in): "servermsg hello-there-321"';
 should_echo 'changeoption PublicName "LL Test 432"' 'Option : PublicName is now : LL Test 432';
 ########################################################################################################################
