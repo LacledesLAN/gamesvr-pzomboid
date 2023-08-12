@@ -2,7 +2,7 @@
 
 ########################################################################################################################
 ### CONFIG VARS ########################################################################################################
-declare LLTEST_CMD="/app/start-server.sh -adminpassword test1234 -steamvac false";
+declare LLTEST_CMD="/app/start-server.sh -servername lltest -adminpassword test1234 -steamvac false";
 declare LLTEST_NAME="gamesvr-pzomboid-$(date '+%H%M%S')";
 ########################################################################################################################
 ########################################################################################################################
@@ -148,6 +148,18 @@ fi;
 should_have "Administrator account 'admin' created" "server able to create admin account";
 should_have "LOADING ASSETS: FINISH" "asset loading completed";
 should_have "*** SERVER STARTED ****" "server started succesfully";
+should_have 'server name is "lltest"' 'server name was set appropriately';
+
+should_have 'Start making backup to: /app/Zomboid/backups/startup' 'server started creating backup';
+should_have 'Backup made in' 'backup was created';
+should_lack 'java.io.FileNotFoundException: /app/Zomboid/backups/startup/backup_' 'server was unable to create backup';
+should_lack 'java.nio.file.AccessDeniedException: /app/Zomboid/backups' 'server unable to access backup directory';
+
+should_have 'Start making backup to: /app/Zomboid/backups/version' 'server started creating backup of versoin number';
+should_lack 'java.io.FileNotFoundException: /app/Zomboid/backups/version/backup_' 'server unable to create backup of version number';
+
+should_lack 'failed to create user database, server shut down' 'server unable to create user database';
+
 should_echo 'servermsg hello-there-321' 'command entered via server console (System.in): "servermsg hello-there-321"';
 should_echo 'changeoption PublicName "LL Test 432"' 'Option : PublicName is now : LL Test 432';
 ########################################################################################################################
