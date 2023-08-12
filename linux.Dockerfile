@@ -19,7 +19,7 @@ RUN dpkg --add-architecture i386 &&`
     apt-get clean &&`
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
-    ENV LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 LABEL maintainer="Laclede's LAN <contact @lacledeslan.com>" `
       com.lacledeslan.build-node=$BUILDNODE `
