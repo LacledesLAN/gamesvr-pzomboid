@@ -1,0 +1,48 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Linux - Build Docker Image",
+            "type": "docker-build",
+            "dockerBuild": {
+                "context": "${workspaceFolder}",
+                "dockerfile": "${workspaceFolder}/linux.Dockerfile",
+                "tag": "lltest/pzomboid:latest",
+                "pull": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Linux - Build & Execute Self Tests",
+            "type": "shell",
+            "command": "docker run -it --rm lltest/pzomboid:latest ./ll-tests/gamesvr-pzomboid.sh;",
+            "dependsOn": "Linux - Build Docker Image",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "promptOnClose": true
+        },
+        {
+            "label": "Linux - Build & Run Interactive Server",
+            "type": "shell",
+            "command": "docker run -it --net=host lltest/pzomboid:latest",
+            "dependsOn": "Linux - Build Docker Image",
+            "group": "build",
+            "problemMatcher": [],
+            "promptOnClose": true
+        },
+        {
+            "label": "Linux - Build & Shell In",
+            "type": "shell",
+            "command": "docker run -it --net=host --rm lltest/pzomboid:latest;",
+            "dependsOn": "Linux - Build Docker Image",
+            "group": "build",
+            "problemMatcher": [],
+            "promptOnClose": true
+        }
+    ]
+}
