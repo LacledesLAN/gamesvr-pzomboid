@@ -15,7 +15,7 @@ HEALTHCHECK NONE
 
 RUN dpkg --add-architecture i386 &&`
     apt-get update && apt-get install -y `
-        ca-certificates locales locales-all software-properties-common tini tmux &&`
+        ca-certificates expect locales locales-all software-properties-common tini tmux &&`
     apt-get clean &&`
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
@@ -39,7 +39,7 @@ RUN useradd --home /app --gid root --system zomboid &&`
 COPY --chown=zomboid:root --from=zomboid-downloader /output /app
 RUN true
 
-COPY --chown=zomboid:root ./dist/linux/ll-tests /app/ll-tests
+COPY --chown=zomboid:root ./dist/linux /app
 RUN true
 
 USER zomboid

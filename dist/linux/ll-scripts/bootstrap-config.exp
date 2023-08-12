@@ -1,0 +1,27 @@
+#!/usr/bin/expect -f
+
+#
+# Spins up a Project Zomboid server so that it generates a config, then deletes any save data,
+# resulting in up-to-date configs that can be modified from the command line.
+#
+# Arguments
+#   0 (optional) the name of the server
+
+
+if {[llength $argv] == 0} {
+    set serverName "servertest"
+} else {
+    set serverName [lindex $argv 0]
+}
+
+spawn /app/start-server.sh -adminpassword test1234 -servername $serverName
+expect "*** SERVER STARTED ****"
+
+send "quit\r"
+interact
+
+# Delete any generated/saved world data.
+exec rm -rf /app/Zomboid/Saves/Multiplayer/$serverName
+
+# Delete the DB that contains users/passwords (and the admin password)
+exec rm -f /app/Zomboid/db/$serverName.db
