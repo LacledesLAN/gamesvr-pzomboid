@@ -5,6 +5,8 @@ RUN echo "\n\nDownloading Project Zomboid Dedicated Server via SteamCMD"; `
         mkdir --parents /output; `
         /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 380870 validate +quit;
 
+COPY ./dist/linux /output
+
 #=======================================================================`
 FROM debian:bookworm-slim
 
@@ -32,14 +34,10 @@ LABEL maintainer="Laclede's LAN <contact @lacledeslan.com>" `
 
 # Set up Enviornment
 RUN useradd --home /app --gid root --system zomboid &&`
-    mkdir -p /app/ll-tests &&`
     chown zomboid:root -R /app;
 
 # `RUN true` lines are work around for https://github.com/moby/moby/issues/36573
 COPY --chown=zomboid:root --from=zomboid-downloader /output /app
-RUN true
-
-COPY --chown=zomboid:root ./dist/linux /app
 RUN true
 
 USER zomboid
