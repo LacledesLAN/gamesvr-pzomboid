@@ -17,7 +17,7 @@
         {
             "label": "Linux - Build & Execute Self Tests",
             "type": "shell",
-            "command": "docker run -it --rm lltest/pzomboid:latest ./ll-tests/gamesvr-pzomboid.sh;",
+            "command": "docker run -it --rm lltest/pzomboid:latest /app/ll-tests/gamesvr-pzomboid.sh;",
             "dependsOn": "Linux - Build Docker Image",
             "group": {
                 "kind": "build",
