@@ -113,8 +113,10 @@ while true; do
 
     if  (( "$LLCOUNTER" >= 29 )); then
         if [ -s "$LLTEST_LOGFILE" ] && ((( $(date +%s) - $(stat -L --format %Y "$LLTEST_LOGFILE") ) > 20 )); then
-            echo $'succeeded.\n';
-            break;
+            if grep -q "*** SERVER STARTED ****" "$LLTEST_LOGFILE"; then
+                echo $'succeeded.\n';
+                break;
+            fi;
         fi;
 
         if (( "$LLCOUNTER" > 120 )); then
