@@ -1,38 +1,39 @@
-# escape=`
-FROM lacledeslan/steamcmd:linux as zomboid-downloader
+FROM lacledeslan/steamcmd:linux AS zomboid-downloader
 
-RUN echo "\n\nDownloading Project Zomboid Dedicated Server via SteamCMD"; `
-        mkdir --parents /output; `
+RUN echo "\n\nDownloading Project Zomboid Dedicated Server via SteamCMD"; \
+        mkdir --parents /output; \
         /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 380870 validate +quit;
 
 COPY ./dist/linux /output
 
-#=======================================================================`
-FROM debian:bookworm-slim
 
-ARG BUILDNODE=unspecified
-ARG SOURCE_COMMIT=unspecified
+#---------------------------------
+FROM debian:trixie-slim
+
+ARG BUILD_DATE=unspecified \
+    BUILD_NODE=unspecified \
+    GIT_REVISION=unspecified
 
 HEALTHCHECK NONE
 
-RUN dpkg --add-architecture i386 &&`
-    apt-get update && apt-get install -y `
-        ca-certificates expect locales locales-all software-properties-common tini tmux &&`
-    apt-get clean &&`
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+
+LABEL architecture="amd64" \
+      com.lacledeslan.build-node="$BUILD_NODE" \
+      maintainer="Laclede's LAN <contact@lacledeslan.com>" \
+      org.opencontainers.image.created="$BUILD_DATE" \
+      org.opencontainers.image.description="Project Zomboid Dedicated Server" \
+      org.opencontainers.image.revision="$GIT_REVISION" \
+      org.opencontainers.image.source="https://github.com/LacledesLAN/gamesvr-pzomboid" \
+      org.opencontainers.image.vendor="Laclede's LAN"
+
+RUN dpkg --add-architecture i386 && \
+    apt-get update && apt-get install -y \
+        ca-certificates expect locales locales-all software-properties-common tini tmux && \
+    apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
-
-LABEL maintainer="Laclede's LAN <contact @lacledeslan.com>" `
-      com.lacledeslan.build-node=$BUILDNODE `
-      org.label-schema.schema-version="1.0" `
-      org.label-schema.url="https://github.com/LacledesLAN/README.1ST" `
-      org.label-schema.vcs-ref=$SOURCE_COMMIT `
-      org.label-schema.vendor="Laclede's LAN" `
-      org.label-schema.description="Project Zomboid Dedicated Server" `
-      org.label-schema.vcs-url="https://github.com/LacledesLAN/gamesvr-pzomboid"
-
-# Set up Enviornment
+# Setup Environment
 RUN useradd --home /app --gid root --system zomboid;
 
 COPY --chown=zomboid:root --from=zomboid-downloader /output /app
