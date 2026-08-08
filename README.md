@@ -13,7 +13,7 @@ firefighter has a higher chance of spawning in a fire station if the chosen town
 the player has to manage their personal needs (such as hunger, stress, fatigue, and boredom) to stay alive through
 resting, scavenging for supplies, and using survivalist techniques.
 
-![Project Zomboid](https://raw.githubusercontent.com/LacledesLAN/gamesvr-pzomboid/master/.misc/pzomboid.jpg "Project Zomboid")
+![Project Zomboid](https://raw.githubusercontent.com/LacledesLAN/gamesvr-pzomboid/refs/heads/main/.documentation/images/banner-pzomboid.jpg "Project Zomboid")
 
 This repository is maintained by [Laclede's LAN](https://lacledeslan.com). Its contents are intended to be bare-bones
 and used as a stock server. If any documentation is unclear or it has any issues please see
