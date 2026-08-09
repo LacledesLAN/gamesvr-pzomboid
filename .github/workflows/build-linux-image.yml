@@ -32,8 +32,9 @@ jobs:
             lacledeslan/gamesvr-pzomboid:latest
             ghcr.io/lacledeslan/gamesvr-pzomboid:latest
           build-args: |
-            BUILDNODE=GitHub (Run Number: ${{ github.run_number }} Run ID: ${{ github.run_id }})
-            SOURCE_COMMIT=${{ github.sha }}
+            BUILD_DATE=${{ github.event.head_commit.timestamp || github.event.pull_request.updated_at || github.event.repository.updated_at }}
+            BUILD_NODE=GitHub (Run Number: ${{ github.run_number }} Run ID: ${{ github.run_id }})
+            GIT_REVISION=${{ github.sha }}
           pull: true
           no-cache: true
       - name: Test Linux Image
