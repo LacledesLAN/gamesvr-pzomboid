@@ -39,8 +39,8 @@ The projects includes a test script that can be used to verify built docker imag
 
 [Docker](https://docs.docker.com/) is an open-source project that bundles applications into lightweight, portable,
 self-sufficient containers. For a crash course on running Dockerized game servers check out [Using Docker for Game
-Servers](https://github.com/LacledesLAN/README.1ST/blob/master/GameServers/DockerAndGameServers.md). For tips, tricks,
+Servers](https://github.com/LacledesLAN/README.1ST/blob/main/GameServers/DockerAndGameServers.md). For tips, tricks,
 and recommended tools for working with Laclede's LAN Dockerized game server repos see the guide for [Working with our
-Game Server Repos](https://github.com/LacledesLAN/README.1ST/blob/master/GameServers/WorkingWithOurRepos.md). You can
+Game Server Repos](https://github.com/LacledesLAN/README.1ST/blob/main/GameServers/WorkingWithOurRepos.md). You can
 also browse all of our other Dockerized game servers: [Laclede's LAN Game Servers
-Directory](https://github.com/LacledesLAN/README.1ST/tree/master/GameServers).
+Directory](https://github.com/LacledesLAN/README.1ST/tree/main/GameServers).
