@@ -9,7 +9,7 @@
             "dockerBuild": {
                 "context": "${workspaceFolder}",
                 "dockerfile": "${workspaceFolder}/linux.Dockerfile",
-                "tag": "lltest/pzomboid:latest",
+                "tag": "gamesvr-pzomboid:latest",
                 "pull": true
             },
             "problemMatcher": []
@@ -17,7 +17,7 @@
         {
             "label": "Linux - Build & Execute Self Tests",
             "type": "shell",
-            "command": "docker run -it --rm lltest/pzomboid:latest /app/ll-tests/gamesvr-pzomboid.sh;",
+            "command": "docker run -it --rm gamesvr-pzomboid:latest /app/ll-tests/gamesvr-pzomboid.sh;",
             "dependsOn": "Linux - Build Docker Image",
             "group": {
                 "kind": "build",
@@ -27,18 +27,9 @@
             "promptOnClose": true
         },
         {
-            "label": "Linux - Build & Run Interactive Server",
-            "type": "shell",
-            "command": "docker run -it --net=host lltest/pzomboid:latest",
-            "dependsOn": "Linux - Build Docker Image",
-            "group": "build",
-            "problemMatcher": [],
-            "promptOnClose": true
-        },
-        {
             "label": "Linux - Build & Shell In",
             "type": "shell",
-            "command": "docker run -it --net=host --rm lltest/pzomboid:latest;",
+            "command": "docker run -it --net=host gamesvr-pzomboid:latest /bin/bash",
             "dependsOn": "Linux - Build Docker Image",
             "group": "build",
             "problemMatcher": [],

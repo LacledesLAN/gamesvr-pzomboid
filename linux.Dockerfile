@@ -16,7 +16,9 @@ ARG BUILD_DATE=unspecified \
 
 HEALTHCHECK NONE
 
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
+    LD_LIBRARY_PATH=/app/jre64/lib
 
 LABEL architecture="amd64" \
       com.lacledeslan.build-node="$BUILD_NODE" \
@@ -29,12 +31,14 @@ LABEL architecture="amd64" \
 
 RUN dpkg --add-architecture i386 && \
     apt-get update && apt-get install -y \
-        ca-certificates expect locales locales-all software-properties-common tini tmux && \
+        ca-certificates expect locales locales-all tini && \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
 # Setup Environment
-RUN useradd --home /app --gid root --system zomboid;
+RUN useradd --home /app --gid root --system zomboid &&\
+    mkdir --parents /app/Zomboid/mods && \
+    chown -R zomboid:root /app/Zomboid;
 
 COPY --chown=zomboid:root --from=zomboid-downloader /output /app
 
