@@ -42,8 +42,6 @@ RUN useradd --home /app --gid root --system zomboid &&\
 
 COPY --chown=zomboid:root --from=zomboid-downloader /output /app
 
-RUN chmod +x /app/ll-scripts/* /app/ll-tests/*.sh;
-
 USER zomboid
 
 WORKDIR /app

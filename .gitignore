@@ -1,3 +1,7 @@
+### Project Specific ###
+tests/logs/**
+!tests/logs/.gitkeep
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json

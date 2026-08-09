@@ -21,13 +21,18 @@ and used as a stock server. If any documentation is unclear or it has any issues
 docker pull lacledeslan/gamesvr-pzomboid;
 ```
 
-### Run Self Tests
-
-The image includes a test script that can be used to verify its contents. No changes or pull-requests will be accepted
-to this repository if any tests fail.
+### Run Simple, Interactive Server
 
 ```shell
-docker run -it --rm lacledeslan/gamesvr-pzomboid ./ll-tests/gamesvr-pzomboid.sh;
+docker run -it --rm --net=host lacledeslan/gamesvr-pzomboid /app/start-server.sh -servername my-server -adminpassword tk421 -steamvac false;
+```
+
+### Run Self Tests
+
+The projects includes a test script that can be used to verify built docker images. No changes or pull-requests will be accepted to this repository if any tests fail.
+
+```shell
+./tests/gamesvr-pzomboid.sh lacledeslan/gamesvr-pzomboid /app/start-server.sh -adminpassword tk421 -steamvac false;
 ```
 
 ## Getting Started with Game Servers in Docker

@@ -18,24 +18,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v4.2.0
-      - name: Pull Latest Linux Base Image
-        run: docker pull debian:bullseye-slim
+      - name: Install tmux
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes tmux
       - name: Build Linux Image
         uses: docker/build-push-action@v7.3.0
         with:
           context: .
           file: ./linux.Dockerfile
           tags: |
+            gamesvr-pzomboid:latest
             lacledeslan/gamesvr-pzomboid:latest
             ghcr.io/lacledeslan/gamesvr-pzomboid:latest
           build-args: |
             BUILDNODE=GitHub (Run Number: ${{ github.run_number }} Run ID: ${{ github.run_id }})
             SOURCE_COMMIT=${{ github.sha }}
+          pull: true
           no-cache: true
       - name: Test Linux Image
-        run: docker run --rm lacledeslan/gamesvr-pzomboid:latest /app/ll-tests/gamesvr-pzomboid.sh
+        run: ./tests/gamesvr-pzomboid.sh gamesvr-pzomboid /app/start-server.sh -adminpassword tk421 -steamvac false;
       - name: Login to DockerHub
         if: ${{ github.event_name != 'pull_request' }}
         uses: docker/login-action@v4.6.0
