@@ -33,7 +33,7 @@ jobs:
             ghcr.io/lacledeslan/gamesvr-pzomboid:latest
           build-args: |
             BUILD_DATE=${{ github.event.head_commit.timestamp || github.event.pull_request.updated_at || github.event.repository.updated_at }}
-            BUILD_NODE=GitHub (Run Number: ${{ github.run_number }} Run ID: ${{ github.run_id }})
+            BUILD_NODE=${{ runner.name }}
             GIT_REVISION=${{ github.sha }}
           pull: true
           no-cache: true
